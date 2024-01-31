@@ -1,9 +1,9 @@
-10 REM FACE
+M10 REM FACE
 20 REM
 30 REM
 40 REM This program draws a face on the screen. But it's
 50 REM a face worth seeing!
-60 ----------------------------------
+60 REM ----------------------------------
 70 REM
 80 SCREEN2,1:COLOR,1,,1:CLS
 90 FORX=1TO45:READ A,B,C:LINE(A,B)-(C,B),15:NEXT
