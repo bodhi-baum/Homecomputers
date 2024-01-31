@@ -17,13 +17,17 @@ jobs:
       - run: pip install -r SC3000/script/requirements.txt
       - run: |
           CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | grep '^SC3000/.*\.\(bas\|basic\)$' || true)
-          echo "Changed Files: "
-          echo "$CHANGED_FILES"
-          for FILE in $CHANGED_FILES; do
-            python SC3000/script/basicToWav.py "$FILE"
-          done
-          git config user.name "bot"
-          git config user.email "github-actions@users.noreply.github.com"
-          git add .
-          git commit -m "Add converted file"
-          git push origin master
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "Changed Files: "
+            echo "$CHANGED_FILES"
+            for FILE in $CHANGED_FILES; do
+              python SC3000/script/basicToWav.py "$FILE"
+            done
+            git config user.name "bot"
+            git config user.email "github-actions@users.noreply.github.com"
+            git add .
+            git commit -m "Add converted file"
+            git push origin master
+          else
+              echo "Nothing to do"
+          fi
