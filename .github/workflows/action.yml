@@ -22,7 +22,6 @@ jobs:
           for FILE in $CHANGED_FILES; do
             python SC3000/script/basicToWav.py "$FILE"
           done
-          CHANGED_FILES=`git diff --name-only ${{ github.event.before }} ${{ github.event.after }}` python script/convert.py
           git config user.name "bot"
           git config user.email "github-actions@users.noreply.github.com"
           git add .
