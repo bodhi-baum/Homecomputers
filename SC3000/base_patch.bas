@@ -1,0 +1,37 @@
+5 REM BASE PATCH SEGA COMPUTER 1986_08, PAGE 14
+10 CLS:E=0
+20 PRINT"     SEGA BASE PATCH PROGRAM":PRINT
+25 PRINT"          by TREVOR Yann"
+27 PRINT
+30 PRINT"This program will alter a disk"
+40 PRINT"containing the Sega Base program so"
+50 PRINT"that any printer can be connected to"
+60 PRINT"the centronics printer port."
+70 PRINT:PRINT
+80 PRINT"Insert Sega Base system disk and"
+90 PRINT"press <CR>."
+100 T$="*":C=10
+110 A$=INKEY$
+120 IFA$=CHR$(13)THEN170
+130 IFE=1THENIFA$<>""THENPRINTCHR$(8):END
+140 C=C+1:IFC<5THEN110
+150 PRINTT$;:C=0:IFT$="*"THENT$=CHR$(8):GOTO110
+160 T$="*":GOTO110
+170 PRINCHR$(8);:BEEP
+180 TR=0:SC=1
+190 DSKI$ TR,SC;A$(0),0,128;A$(1),128,128
+200 IFLEFT$(A$(0),14<>"SYS: SEGA BASE"THENBEEP2:PRINT:PRINT"This is not a Sega Base system disk.":PRINT:GOTO 80
+210 PRINT:PRINT"Updating disk"
+220 TR=0:SC=10
+230 DSKI$ TR,SC;A$(0),0,128;A$(1),128,128
+240 BT=&HBB
+250 NW$=CHR§(&H0D)+CHR$(&H28)+CHR$(&H05)+CHR$(&HFE)+CHR$(&H0A)+CHR§(&HC2)+CHR$(&HD3)+CHR$(&H09)+CHR§(&H3E)+CHR$(&H0A)
+260 NW$=NW$+CHR$(&HCD)+CHR$(&HE5)+CHR$(&H09)+CHR$(&H3E)+CHR$(&H0D)+CHR$(&HCD)+CHR$(&HE5)+CHR$(&H09)+CHR$(&HC3)+CHR$(&HF3)+CHR$(&H09)
+270 LN=LEN(NW$)
+280 A$(INT(BT/128))=LEFT$(A$(INT(BT/128)),BTMOD128)+NW$+RIGHT$(A$(INT(BT/128)),128-BTMOD128-LN)
+290 DSKO$ TR,SC;A$(0),0,128;A$(1),128,128
+300 BEEP:E=1
+310 PRINT"Disk updated":PRINT
+320 PRINT"Press <cr> to update another disk,"
+330 PRINT"or any other key to end the program."
+340 GOTO100
